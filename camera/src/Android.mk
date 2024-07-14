@@ -20,6 +20,7 @@ LOCAL_CFLAGS += \
 	-Wall \
 	-fvisibility=hidden \
 	-std=c99
+LOCAL_CFLAGS += -DANDROID_FRAMEWORKS_CAMERA_SPRD
 
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
     # Enable assert()

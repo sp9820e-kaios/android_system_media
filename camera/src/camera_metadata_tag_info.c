@@ -866,6 +866,10 @@ int camera_metadata_enum_snprint(uint32_t tag,
                     msg = "EDOF";
                     ret = 0;
                     break;
+                case ANDROID_CONTROL_AF_MODE_MACRO_FIXED:
+                    msg = "MACRO_FIXED";
+                    ret = 0;
+                    break;
                 default:
                     msg = "error: enum value out of range";
             }
@@ -1129,10 +1133,12 @@ int camera_metadata_enum_snprint(uint32_t tag,
                     msg = "HIGH_SPEED_VIDEO";
                     ret = 0;
                     break;
+#ifdef ANDROID_FRAMEWORKS_CAMERA_SPRD
                 case ANDROID_CONTROL_SCENE_MODE_HDR:
                     msg = "HDR";
                     ret = 0;
                     break;
+#endif
                 case ANDROID_CONTROL_SCENE_MODE_FACE_PRIORITY_LOW_LIGHT:
                     msg = "FACE_PRIORITY_LOW_LIGHT";
                     ret = 0;

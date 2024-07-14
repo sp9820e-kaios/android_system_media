@@ -60,10 +60,13 @@ typedef enum {
     AUDIO_STREAM_TTS              = 9,  /* Transmitted Through Speaker.
                                          * Plays over speaker only, silent on other devices.
                                          */
-    AUDIO_STREAM_ACCESSIBILITY    = 10, /* For accessibility talk back prompts */
-    AUDIO_STREAM_REROUTING        = 11, /* For dynamic policy output mixes */
-    AUDIO_STREAM_PATCH            = 12, /* For internal audio flinger tracks. Fixed volume */
-    AUDIO_STREAM_PUBLIC_CNT       = AUDIO_STREAM_TTS + 1,
+    AUDIO_STREAM_FM = 10, /* For fm stream */
+    AUDIO_STREAM_VIB		  = 11,
+    AUDIO_STREAM_ACCESSIBILITY    = 12, /* For accessibility talk back prompts */
+    AUDIO_STREAM_REROUTING        = 13, /* For dynamic policy output mixes */
+    AUDIO_STREAM_PATCH            = 14, /* For internal audio flinger tracks. Fixed volume */
+
+    AUDIO_STREAM_PUBLIC_CNT = AUDIO_STREAM_VIB + 1,
     AUDIO_STREAM_CNT              = AUDIO_STREAM_PATCH + 1,
 } audio_stream_type_t;
 
@@ -76,6 +79,7 @@ typedef enum {
     AUDIO_CONTENT_TYPE_MUSIC        = 2,
     AUDIO_CONTENT_TYPE_MOVIE        = 3,
     AUDIO_CONTENT_TYPE_SONIFICATION = 4,
+    AUDIO_CONTENT_TYPE_VIB          = 5,
 
     AUDIO_CONTENT_TYPE_CNT,
     AUDIO_CONTENT_TYPE_MAX          = AUDIO_CONTENT_TYPE_CNT - 1,
@@ -101,6 +105,7 @@ typedef enum {
     AUDIO_USAGE_ASSISTANCE_SONIFICATION            = 13,
     AUDIO_USAGE_GAME                               = 14,
     AUDIO_USAGE_VIRTUAL_SOURCE                     = 15,
+    AUDIO_USAGE_VIB                                = 16,
 
     AUDIO_USAGE_CNT,
     AUDIO_USAGE_MAX                                = AUDIO_USAGE_CNT - 1,
@@ -140,6 +145,7 @@ typedef enum {
                                           /* An example of remote presentation is Wifi Display */
                                           /*  where a dongle attached to a TV can be used to   */
                                           /*  play the mix captured by this audio source.      */
+    AUDIO_SOURCE_RECORD_NO_AUDIO     = 9, /* SPRD: add one audioSource type for slow motion */
     AUDIO_SOURCE_CNT,
     AUDIO_SOURCE_MAX                 = AUDIO_SOURCE_CNT - 1,
     AUDIO_SOURCE_FM_TUNER            = 1998,
@@ -615,6 +621,11 @@ enum {
     AUDIO_DEVICE_OUT_AUX_LINE                  = 0x200000,
     /* limited-output speaker device for acoustic safety */
     AUDIO_DEVICE_OUT_SPEAKER_SAFE              = 0x400000,
+    // modified for FM start
+    AUDIO_DEVICE_OUT_FM_HEADSET                = 0x1000000,
+    AUDIO_DEVICE_OUT_FM_SPEAKER                = 0x2000000,
+    // modified for FM end
+    AUDIO_DEVICE_OUT_VIB                = 0x4000000,
     AUDIO_DEVICE_OUT_IP                        = 0x800000,
     AUDIO_DEVICE_OUT_DEFAULT                   = AUDIO_DEVICE_BIT_DEFAULT,
     AUDIO_DEVICE_OUT_ALL      = (AUDIO_DEVICE_OUT_EARPIECE |
@@ -640,6 +651,8 @@ enum {
                                  AUDIO_DEVICE_OUT_FM |
                                  AUDIO_DEVICE_OUT_AUX_LINE |
                                  AUDIO_DEVICE_OUT_SPEAKER_SAFE |
+								 AUDIO_DEVICE_OUT_FM_HEADSET |
+                                 AUDIO_DEVICE_OUT_FM_SPEAKER |
                                  AUDIO_DEVICE_OUT_IP |
                                  AUDIO_DEVICE_OUT_DEFAULT),
     AUDIO_DEVICE_OUT_ALL_A2DP = (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
@@ -650,6 +663,10 @@ enum {
                                  AUDIO_DEVICE_OUT_BLUETOOTH_SCO_CARKIT),
     AUDIO_DEVICE_OUT_ALL_USB  = (AUDIO_DEVICE_OUT_USB_ACCESSORY |
                                  AUDIO_DEVICE_OUT_USB_DEVICE),
+    // modified for FM start
+    AUDIO_DEVICE_OUT_ALL_FM   = (AUDIO_DEVICE_OUT_FM_HEADSET |
+                                 AUDIO_DEVICE_OUT_FM_SPEAKER),
+    // modified for FM end
     /* input devices */
     AUDIO_DEVICE_IN_COMMUNICATION         = AUDIO_DEVICE_BIT_IN | 0x1,
     AUDIO_DEVICE_IN_AMBIENT               = AUDIO_DEVICE_BIT_IN | 0x2,
@@ -884,7 +901,7 @@ struct audio_gain_config  {
 
 /* Types defined here are used to describe an audio source or sink at internal
  * framework interfaces (audio policy, patch panel) or at the audio HAL.
- * Sink and sources are grouped in a concept of “audio port” representing an
+ * Sink and sources are grouped in a concept of â€œaudio portâ€?representing an
  * audio end point at the edge of the system managed by the module exposing
  * the interface. */
 

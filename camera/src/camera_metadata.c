@@ -815,7 +815,8 @@ int get_camera_metadata_tag_type(uint32_t tag) {
     }
     if (tag_section >= ANDROID_SECTION_COUNT ||
             tag >= camera_metadata_section_bounds[tag_section][1] ) {
-        return -1;
+        ALOGE("#####get_camera_metadata_tag_type: hal %d, tag=%x, tag_section=%x, bounds=%x\n", __LINE__, tag, tag_section, camera_metadata_section_bounds[tag_section][1]);
+		return -1;
     }
     uint32_t tag_index = tag & 0xFFFF;
     return tag_info[tag_section][tag_index].tag_type;

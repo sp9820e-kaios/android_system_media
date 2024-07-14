@@ -466,6 +466,7 @@ typedef enum camera_metadata_enum_android_control_af_mode {
     ANDROID_CONTROL_AF_MODE_CONTINUOUS_VIDEO,
     ANDROID_CONTROL_AF_MODE_CONTINUOUS_PICTURE,
     ANDROID_CONTROL_AF_MODE_EDOF,
+    ANDROID_CONTROL_AF_MODE_MACRO_FIXED,
 } camera_metadata_enum_android_control_af_mode_t;
 
 // ANDROID_CONTROL_AF_TRIGGER
@@ -888,7 +889,6 @@ typedef enum camera_metadata_enum_android_black_level_lock {
     ANDROID_BLACK_LEVEL_LOCK_OFF,
     ANDROID_BLACK_LEVEL_LOCK_ON,
 } camera_metadata_enum_android_black_level_lock_t;
-
 
 // ANDROID_SYNC_FRAME_NUMBER
 typedef enum camera_metadata_enum_android_sync_frame_number {
